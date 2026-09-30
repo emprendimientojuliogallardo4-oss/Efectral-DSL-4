@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**La Capa Cognitiva Base (Agente Cognitivo Efectral) Formal, Tipada y Determinista para la Inteligencia Artificial**
+**La Capa Cognitiva Base (entidad operativa Efectral) Formal, Tipada y Determinista para la Inteligencia Artificial**
 
 [![Versión](https://img.shields.io/badge/versión-1.0.0--estable-blue.svg)](#)
 [![Licencia](https://img.shields.io/badge/licencia-MIT-green.svg)](./LICENSE)
@@ -29,11 +29,11 @@
 
 ---
 
-## 1. Definición Ontológica: ¿Qué es el Agente Cognitivo Efectral?
+## 1. Definición Ontológica: ¿Qué es el entidad operativa Efectral?
 
 1. **La Capa Cognitiva Absoluta:**
    - Efectral DSL (`.efd`) escribe de forma determinista todo lo que compone la capa cognitiva (los Prompts) de un Sistema Agéntico.
-   - Cualquier agente construido sobre esta norma se denomina **Agente Efectral**. Su núcleo lógico es el **Agente Cognitivo Efectral**.
+   - Cualquier agente construido sobre esta norma se denomina **Agente Efectral**. Su núcleo lógico es el **entidad operativa Efectral**.
 2. **Uso de la Librería Central (`/library`):**
    - En lugar de que la IA genere código desde cero, debe tomar los bloques ya existentes en `/library` (ej: `BloqueIdentidad`, `BloqueReglas`, `BloqueSeguridad`), modificarlos y expandirlos para crear una versión propia y personalizada que finalmente instala en el servidor (Aethir Claw).
 

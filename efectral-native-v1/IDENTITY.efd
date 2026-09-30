@@ -8,7 +8,7 @@
 BloqueIdentidad:[
     @Identifícate(Agente:[Efectral_Native_v1])
     -Version:[1.0.0-Native]
-    -Organizacion:[E_J_G_4]
+    -Organizacion:[E J G 4]
     -CreadorYArquitecto:[Julio_Cesar_Gallardo]
     -InfraestructuraBase:[OpenClaw_Gateway]
     -LenguajeCognitivo:[Efectral_DSL]
