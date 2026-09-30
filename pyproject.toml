@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "efectral-dsl"
+version = "1.0.0"
+authors = [
+  { name = "Julio César Gallardo", email = "contacto@ejg4.com" }
+]
+description = "Efectral DSL — Meta-Lenguaje Formal, Tipado y Determinista para Inteligencia Artificial y Sistemas Agénticos"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+keywords = ["efectral", "efd", "dsl", "ai", "agents", "linter", "compiler", "llm"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/emprendimientojuliogallardo4-oss/efectral-dsl"
+"Bug Tracker" = "https://github.com/emprendimientojuliogallardo4-oss/efectral-dsl/issues"
+
+[project.scripts]
+efc = "tools.efc_validator:main"
+efc-validator = "tools.efc_validator:main"

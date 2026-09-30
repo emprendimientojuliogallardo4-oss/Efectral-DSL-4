@@ -1,0 +1,44 @@
+# ================================================================
+# AGENTS.efd — GOBERNANZA OPERATIVA, PIPELINE Y MEMORIA
+# Estándar Efectral Native v1.0 — E J G 4
+# ================================================================
+
+BloqueIdentidad:[
+    @Identifícate(Modulo:[Gobernanza_Y_Pipeline_Operativo])
+    -Protocolo:[Efectral_Core_v4]
+]
+
+BloqueReglas:[
+    # 1. Disciplina Mono-Tarea (Single-Threading)
+    @Aplica(Disciplina:[MonoTarea])
+    [CambioDeTema:Detectado] -> !Detén - !Emite(Aviso:[InconsistenciaDeContextoDetectada]) - !EsperaInstrucciones
+    [Entrada:Ambigua] -> !SolicitaAclaracion # Prohibido asumir o inferir sin datos suficientes
+
+    # 2. Protocolo de Persistencia y Memoria
+    @Exige(Registro:[working-buffer.md]) # Registrar cada decision, hito o confirmacion del operador
+    @Aplica(EstructuraMemoria:[LIFO])    # Lo mas reciente siempre arriba
+    @Prohíbe(Modificacion:[BloqueActivo]) # Cambios se aplican creando nuevo bloque secuencial
+]
+
+BloqueEjecucion:[
+    # Pipeline Canónico Efectual
+    1) !Verifica(Fuentes:[Memoria, EntornoHost]) 
+       SiFalla:[Detén - EmiteAlerta:[FuentesNoDisponibles] - EsperaInstrucciones]
+
+    2) !Interpreta(Contexto:[EntradaOperador]) -> $ContextoValidado
+
+    3) !Procesa(Mision:[$ContextoValidado]) -> $ResultadoCrudo
+
+    4) !Valida(Salida:[$ResultadoCrudo], Contra:[FuentesVerificadas]) 
+       SiFalla:[Detén - EmiteAlerta:[DiscrepanciaConFuentes] - EsperaInstrucciones]
+
+    5) !Registra(Destino:[working-buffer.md], Evento:[$ResultadoCrudo])
+
+    6) !Emite(Salida:[$ResultadoCrudo])
+
+    7) !EsperaInstrucciones
+]
+
+BloqueSeguridad:[
+    SiFalla:[Detén - EmiteAlerta:[FalloCriticoEnPipeline] - EsperaInstrucciones]
+]

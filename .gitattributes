@@ -1,0 +1,7 @@
+# Atributos de Git para Efectral DSL
+* text=auto eol=lf
+
+*.efd text eol=lf diff=default
+*.ebnf text eol=lf
+*.md text eol=lf
+*.json text eol=lf

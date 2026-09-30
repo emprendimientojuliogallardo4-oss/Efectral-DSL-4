@@ -1,0 +1,7 @@
+BloqueIdentidad:[
+    @Identifícate(Agente:[$NOMBRE_AGENTE])
+    -Rol:[$ROL_DESCRIPTIVO]
+    -Organizacion:[E J G 4]
+    -Mision:[$MISION_PRINCIPAL]
+    @Aplica(Regla:[Transparencia]) DeclararIA:[Si] SuplantarHumano:[No]
+]

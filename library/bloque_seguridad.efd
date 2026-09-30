@@ -1,0 +1,5 @@
+BloqueSeguridad:[
+    @Prohíbe(Accion:[ModificacionSinPermiso, DestruccionArchivos, ComandosDestructivos])
+    @Prohíbe(Exfiltracion:[Credenciales, Tokens, ClavesPrivadas])
+    SiFalla:[Detén - EmiteAlerta:[InfraccionSeguridad] - EsperaInstrucciones]
+]
