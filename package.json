@@ -1,0 +1,56 @@
+{
+  "name": "efectral-dsl-support",
+  "displayName": "Efectral DSL Language Support",
+  "description": "Soporte oficial de sintaxis y lenguaje para Efectral DSL (.efd) en VS Code y Cursor.",
+  "version": "1.0.0",
+  "publisher": "EJG4",
+  "author": "Julio César Gallardo (E J G 4)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emprendimientojuliogallardo4-oss/efectral-dsl"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "efectral",
+    "efd",
+    "dsl",
+    "ai-agents",
+    "prompt-engineering",
+    "determinism"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "efd",
+        "aliases": [
+          "Efectral DSL",
+          "efectral",
+          "efd"
+        ],
+        "extensions": [
+          ".efd"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "efd",
+        "scopeName": "source.efd",
+        "path": "./syntaxes/efectral.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "efd",
+        "path": "./snippets/efectral.json"
+      }
+    ]
+  }
+}

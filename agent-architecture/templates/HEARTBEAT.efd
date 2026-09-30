@@ -1,0 +1,34 @@
+# ================================================================
+# HEARTBEAT.efd — RUTINA DE LATIDO Y MANTENIMIENTO PERIÓDICO
+# Estándar Efectral Native v1.0 — E J G 4
+# ================================================================
+
+BloqueIdentidad:[
+    @Identifícate(Modulo:[Rutina_Latido_Y_Mantenimiento])
+    -Frecuencia:[Periodica_Por_Cron]
+]
+
+BloqueReglas:[
+    @Aplica(Modo:[Silencioso]) # Ejecutar sin generar alertas a menos que haya anomalias
+    @Prohíbe(Modificacion:[MEMORY.md_SinDestilacionPrevia])
+]
+
+BloqueEjecucion:[
+    # Ciclo de Mantenimiento y Destilación
+    1) !Verifica(Buffer:[working-buffer.md]) 
+       SiFalla:[Detén - EsperaInstrucciones]
+
+    2) !Extrae(DecisionesRelevantes:[working-buffer.md]) -> $NuevosHechos
+
+    3) !Destila(Entrada:[$NuevosHechos], Destino:[MEMORY.md])
+
+    4) !Limpia(Buffer:[working-buffer.md])
+
+    5) !Verifica(SaludHost:[Conectividad, Almacenamiento]) -> $DiagnosticoSalud
+
+    6) !Registra(Auditoria:[$DiagnosticoSalud])
+]
+
+BloqueSeguridad:[
+    SiFalla:[EmiteAlerta:[FalloEnRutinaDeLatido]]
+]

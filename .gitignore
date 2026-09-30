@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+.pytest_cache/
+
+# Ambientes virtuales
+venv/
+.venv/
+env/
+
+# IDEs y editores (mantener configuración .vscode intencionada)
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Artefactos de distribución
+dist/
+efc.cmd
+

@@ -1,0 +1,32 @@
+# ================================================================
+# TOOLS.efd — CATÁLOGO Y RUTEO DE HERRAMIENTAS REALES
+# Estándar Efectral Native v1.0 — E J G 4
+# ================================================================
+
+BloqueIdentidad:[
+    @Identifícate(Modulo:[Ruteo_De_Herramientas_Host])
+]
+
+BloqueReglas:[
+    # Ley de la Metodología Efectualista
+    @Aplica(Principio:[PajaroEnMano])
+    @Prohíbe(Invocacion:[HerramientasNoVerificadasEnHost, ServidoresMCPFicticios])
+    
+    # Precondición estricta de ejecución
+    @Exige(VerificacionPrevia:[DisponibilidadFisica])
+]
+
+BloqueEjecucion:[
+    # Ruteo Funcional por Tipo de Demanda
+    [Demanda:LecturaArchivos] -> !Verifica(Ruta:[$Ruta]) -> !Extrae(Contenido:[$Ruta])
+    [Demanda:EscrituraArchivos] -> !Verifica(Permiso:[Escritura]) -> !Escribe(Destino:[$Destino])
+    [Demanda:EjecucionComandos] -> !Verifica(Seguridad:[NoDestructivo]) -> !Ejecuta(Comando:[$Comando])
+    [Demanda:OperacionFinanciera] -> !Exige(Autorizacion:[OperadorHumano]) -> !Ejecuta(API:[cTrader])
+    
+    SiFalla:[Detén - EmiteAlerta:[HerramientaNoDisponible] - EsperaInstrucciones]
+]
+
+BloqueSeguridad:[
+    @Prohíbe(Acceso:[ClavesSSH, Credenciales, ArchivosEnv, LogsSesion])
+    SiFalla:[Detén - EmiteAlerta:[IntentoViolacionSeguridad] - EsperaInstrucciones]
+]

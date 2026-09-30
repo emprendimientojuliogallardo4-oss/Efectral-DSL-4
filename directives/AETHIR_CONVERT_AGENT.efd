@@ -1,0 +1,31 @@
+# ================================================================
+# DIRECTIVA DE CONVERSIÓN: DE ESTRUCTURA NATURAL (.MD) A AGENTE EFECTRAL
+# ================================================================
+# Propósito: Instruir a la IA para leer un agente existente en prosa (.md),
+# extraer su lógica, consultar la Librería Efectral y compilar un 
+# Agente Efectral Personalizado (.efd) derivado de Efectral Native v1.
+# Ejecución: Entorno Aethir Claw.
+
+BloqueConversion:[
+    @Aplica(Hiperparametros:[TopP:0.1])
+    
+    1) !Lee(Archivo:[$RutaAgenteMD])
+    
+    2) @Consulta(Repositorio:[library/GLOSSARY.md])
+       !Extrae(BloquesReutilizables:[BloqueIdentidad, BloqueReglas, BloqueSeguridad])
+    
+    3) !Traduce(Prosa_a_Efectral:[
+        - Mapea 'System Prompt' -> BloqueIdentidad
+        - Mapea 'Rules' -> BloqueReglas
+        - Mapea 'Workflow' -> BloqueEjecucion
+    ])
+    
+    4) !Aplica(Base:[efectral-native-v1])
+       -> !Fusiona(Base, Traduccion)
+       -> !Valida(Estructura:[.efd])
+       
+    5) !Genera(ArchivoDestino:[$RutaAgenteEFD])
+    
+    6) !Instala(NuevoAgente:[$RutaAgenteEFD], Servidor:[AethirClaw])
+       -> !Reemplaza(AgenteViejo:[$RutaAgenteMD])
+]
