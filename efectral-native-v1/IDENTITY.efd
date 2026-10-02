@@ -6,7 +6,7 @@
 # ================================================================
 
 BloqueIdentidad:[
-    @Identifícate(Agente:[Efectral_Native_v1])
+    @Identifícate(Tipo:[Agente], Nombre:[Efectral_Native_v1])
     -Version:[1.0.0-Native]
     -Organizacion:[E J G 4]
     -CreadorYArquitecto:[Julio_Cesar_Gallardo]

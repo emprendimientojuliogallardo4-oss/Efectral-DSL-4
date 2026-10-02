@@ -5,7 +5,42 @@ El formato sigue el estándar de registro histórico para facilitar la lectura d
 
 ---
 
-## [1.1.0] - Evolución Semántica y Estandarización - (Versión Actual)
+## [1.2.0] - Discriminador de Tipo y Regla de Herencia Ontológica - (Versión Actual)
+
+### 🚀 Cambio (Qué cambió y Cómo)
+- **Discriminador de Tipo en `BloqueIdentidad`:** Evolución del esquema canónico de identificación de `@Identifícate(Agente:[X])` a `@Identifícate(Tipo:[T], Nombre:[X])`.
+- **Vocabulario Cerrado de Tipos:** Se define formalmente el conjunto cerrado de identificadores ontológicos para `Tipo`: `{Agente, Skill, Configuracion, Herramienta, Bloque, Memoria}`.
+- **Regla de Herencia Ontológica:** Los metadatos de gobernanza global (`-Organizacion`), la directiva de transparencia (`@Aplica(Regla:[Transparencia])`) y las reglas base del sistema viven **exclusivamente** en el artefacto raíz de tipo `[Agente]`. Los artefactos secundarios (`Skill`, `Configuracion`, `Herramienta`, `Bloque`, `Memoria`) heredan la autoridad ontológica raíz y no duplican estos campos, declarando únicamente `Tipo` + `Nombre` + `Rol` + `Mision` y sus especificaciones técnicas locales.
+- **Actualización de Plantillas y Ejemplos:** Estandarización de `library/bloque_identidad.efd`, la cédula raíz `efectral-native-v1/IDENTITY.efd`, y la totalidad de los ejemplos canónicos en `examples/*.efd` y `core/examples/*.efd`.
+- **Evolución Documental:** Actualización normativa en `SPECIFICATION.md` (secciones 3.1, 4.5 y 4.6), `library/GLOSSARY.md` y delimitación en `docs/SINTAXIS_SEMANTICA_FLEXIBLE.md`.
+
+### 🧠 Motivo (Por qué y Resultado)
+- **¿Por qué?** En sistemas agénticos modulares avanzados (principio Kernel Linux), los submódulos auxiliares no deben tratarse ontológicamente como agentes raíz ni saturar la ventana de contexto repitiendo declaraciones organizacionales o de transparencia. Se requería una distinción formal e inequívoca de la naturaleza de cada artefacto sin perder el determinismo estructural.
+- **Resultado:** Jerarquía limpia, atómica y altamente escalable. Los LLMs y validadores identifican instantáneamente el rol del archivo en la arquitectura global, preservando la ventana de atención al eliminar redundancias de gobernanza en componentes subordinados.
+
+### 📁 Archivos Afectados
+- `VERSION`
+- `CHANGELOG.md`
+- `SPECIFICATION.md`
+- `library/GLOSSARY.md`
+- `library/bloque_identidad.efd`
+- `docs/SINTAXIS_SEMANTICA_FLEXIBLE.md`
+- `efectral-native-v1/IDENTITY.efd`
+- `examples/01_hello_agent.efd`
+- `examples/02_safe_guardrails.efd`
+- `examples/03_pipeline_data.efd`
+- `examples/04_efectral_4_canonical.efd`
+- `examples/05_agente_funcional_en_blanco.efd`
+- `examples/06_agente_contenido.efd`
+- `core/examples/01_hello_agent.efd`
+- `core/examples/02_safe_guardrails.efd`
+- `core/examples/03_pipeline_data.efd`
+- `core/examples/04_efectral_4_canonical.efd`
+- `core/examples/05_agente_funcional_en_blanco.efd`
+
+---
+
+## [1.1.0] - Evolución Semántica y Estandarización
 
 ### 🚀 Añadido (Qué cambió y Cómo)
 - **Sintaxis Semántica Flexible:** Se integró el documento `docs/SINTAXIS_SEMANTICA_FLEXIBLE.md` que establece la inmunidad al idioma y la capacidad de la IA para inventar etiquetas deterministas en tiempo real (ej. `!Ruta`, `!ModulaTono`).

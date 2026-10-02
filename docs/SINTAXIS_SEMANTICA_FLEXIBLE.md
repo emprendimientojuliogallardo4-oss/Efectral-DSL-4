@@ -39,3 +39,14 @@ BloquePersonalidad:[
 1. **Inmunidad al Idioma:** La IA puede interpretar y escribir los bloques en español, inglés, mandarín o cualquier idioma. Efectral DSL procesa la lógica operativa independientemente del idioma base.
 2. **Alta Expresividad:** Permite detallar protocolos de seguridad masivos (como las *Red Lines*) usando nombres de variables que la IA comprende semánticamente (`!Aplica(ModulacionEmocional)`).
 3. **Escalabilidad:** A medida que el agente evoluciona o adquiere nuevas herramientas, no hay que actualizar un analizador léxico; el agente simplemente crea la etiqueta descriptiva bajo el estándar Efectral.
+
+## Límite de Flexibilidad: Vocabulario Cerrado en Inicialización Ontológica (v1.2.0)
+
+La libertad semántica aplica plenamente al diseño de verbos imperativos (`!Acción(...)`), directivas operativas (`@Directiva(...)`) y ramas condicionales de enrutamiento. 
+
+Sin embargo, para garantizar que el sistema operativo agéntico mantenga interoperabilidad determinista y gobierne la **Regla de Herencia**, la declaración ontológica en `BloqueIdentidad` ancla el discriminador de tipo a un **vocabulario cerrado**:
+
+```efd
+@Identifícate(Tipo:[T], Nombre:[X])
+```
+donde `T` ∈ `{Agente, Skill, Configuracion, Herramienta, Bloque, Memoria}`. La semántica viva y flexible opera sobre una estructura ontológicamente tipada.

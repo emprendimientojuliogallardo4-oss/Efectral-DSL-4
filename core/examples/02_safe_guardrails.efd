@@ -5,7 +5,7 @@
 # ================================================================
 
 BloqueIdentidad:[
-    @Identifícate(Agente:[GuardianServidor])
+    @Identifícate(Tipo:[Agente], Nombre:[GuardianServidor])
     -Proyecto:[E J G 4]
     -Entorno:[Servidor Aethir Claw]
     -Rol:[OperacionesSeguras]

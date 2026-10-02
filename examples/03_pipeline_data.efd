@@ -5,7 +5,7 @@
 # ================================================================
 
 BloqueIdentidad:[
-    @Identifícate(Agente:[AnalistaDeDatos])
+    @Identifícate(Tipo:[Agente], Nombre:[AnalistaDeDatos])
     -Proyecto:[E J G 4]
     -Rol:[ProcesamientoDeArchivos]
 ]

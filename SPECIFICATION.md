@@ -1,6 +1,6 @@
 # Especificación Formal de Efectral DSL
 
-> **Versión Normativa:** 1.0.0 (Edición Estándar)  
+> **Versión Normativa:** 1.2.0 (Edición Estándar)  
 > **Estado:** Aprobado / Cerrado  
 > **Autoría:** E J G 4 — Julio César Gallardo  
 
@@ -60,7 +60,7 @@ Efectral DSL no limita artificialmente el léxico a un diccionario cerrado mecá
 
 ### 3.1. Núcleo Canónico de Referencia (Estándar Recomendado)
 Para maximizar la interoperabilidad entre agentes y herramientas, se establece el siguiente núcleo canónico de referencia:
-* `@Identifícate(Agente:[...])`: Fija nombre, rol y entidad representada.
+* `@Identifícate(Tipo:[T], Nombre:[...])`: Fija la ontología y naturaleza del artefacto (con `T` perteneciente al vocabulario cerrado `{Agente, Skill, Configuracion, Herramienta, Bloque, Memoria}`), su identificador unívoco, rol y misión.
 * `@Aplica(Regla:[...])`: Carga hiperparámetros, restricciones o directivas operativas.
 * `@Fija(Skin:[...])`: Configura el estilo de salida, límite de oraciones y tono.
 * `@Prohíbe(Accion:[...])`: Bloquea acciones de riesgo (borrado de datos, movimientos de fondos).
@@ -110,13 +110,31 @@ Garantiza que la IA adopte de forma determinista la rama correspondiente a la in
 
 ### 4.5. Componentes Primitivos del Sistema Operativo Agéntico
 Los bloques en Efectral DSL no son etiquetas textuales arbitrarias; representan **componentes arquitectónicos de primera clase** formalizados por la norma:
-1. `BloqueIdentidad:[...]`: Raíz ontológica, nombre, rol, organización y directiva de transparencia.
+1. `BloqueIdentidad:[...]`: Raíz ontológica y discriminador de tipo (`@Identifícate(Tipo:[T], Nombre:[...])`), rol y misión. En el artefacto raíz de tipo `[Agente]`, define organización y directiva de transparencia. En componentes subordinados (`Skill`, `Configuracion`, `Herramienta`, `Bloque`, `Memoria`), rige la Regla de Herencia omitiendo redundancias.
 2. `BloqueReglas:[...]`: Hiperparámetros de inferencia, skin, restricciones y directivas permanentes `@`.
 3. `BloqueSeguridad:[...]`: Anillo de protección dura, listas de prohibición y cortocircuitos `SiFalla`.
 4. `BloqueCargaSelectiva:[...]`: Despachador de recursos estilo Kernel Linux; monta módulos bajo demanda activa según la tarea.
 5. `BloqueEjecucion:[...]`: Secuencia ordenada de instrucciones imperativas (`!`), tuberías (`->`) y contratos de salida.
 6. `BloqueMemoria:[...]`: Esquema LIFO de persistencia estructurada y auditoría de eventos.
 7. `BloqueLatido:[...]`: Ciclos proactivos, cron autónomo y monitoreo periódico de salud.
+
+### 4.6. Discriminador de Tipo y Regla de Herencia (Estándar v1.2.0)
+Para estructurar sistemas agénticos modulares sin ambigüedad ontológica y preservar la ventana de atención:
+
+1. **Esquema de Identificación:**
+   Todo `BloqueIdentidad` formaliza el tipo y nombre del artefacto:
+   `@Identifícate(Tipo:[T], Nombre:[X])`
+   donde `T` pertenece obligatoriamente al vocabulario cerrado:
+   - `Agente`: Entidad operativa u orquestador raíz del sistema agéntico.
+   - `Skill`: Módulo de capacidad procedimental o habilidad cognitiva especializada.
+   - `Configuracion`: Parámetros, variables y modulaciones de entorno/voz.
+   - `Herramienta`: Conector o enrutador técnico de ejecución externa (host, APIs, MCP).
+   - `Bloque`: Fragmento o subestructura lógica reutilizable.
+   - `Memoria`: Buffer de contexto persistente o bitácora de sesión.
+
+2. **Regla de Herencia:**
+   - El parámetro `-Organizacion:[...]`, la directiva de transparencia obligatoria `@Aplica(Regla:[Transparencia])` y las reglas base del sistema viven **exclusivamente** en el artefacto raíz de tipo `[Agente]`.
+   - Los artefactos subordinados (`Skill`, `Configuracion`, `Herramienta`, `Bloque`, `Memoria`) **no repiten** estos atributos; heredan la ontología y autoridad del agente raíz y declaran únicamente `Tipo` + `Nombre` + `Rol` + `Mision` más sus directivas técnicas locales.
 
 ---
 

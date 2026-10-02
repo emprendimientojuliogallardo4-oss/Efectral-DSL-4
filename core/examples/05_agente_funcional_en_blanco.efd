@@ -9,7 +9,7 @@
 # ================================================================
 
 BloqueIdentidad:[
-    @Identifícate(Agente:[AgenteEfectual])
+    @Identifícate(Tipo:[Agente], Nombre:[AgenteEfectual])
     -Version:[1.0.0]
     -Organizacion:[E J G 4]
     -OperadorAutorizado:[Julio César Gallardo]
