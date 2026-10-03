@@ -4,12 +4,13 @@
   "scopeName": "source.efd",
   "fileTypes": ["efd"],
   "patterns": [
-    { "include": "#comments" },
+    { "include": "#parser_blocks" },
     { "include": "#strings" },
     { "include": "#directives" },
     { "include": "#actions" },
     { "include": "#ordinals" },
     { "include": "#pipelines" },
+    { "include": "#logic_operators" },
     { "include": "#variables" },
     { "include": "#booleans" },
     { "include": "#numbers" },
@@ -17,9 +18,16 @@
     { "include": "#punctuation" }
   ],
   "repository": {
-    "comments": {
-      "name": "comment.line.number-sign.efd",
-      "match": "#.*$"
+    "parser_blocks": {
+      "name": "meta.embedded.block.efd",
+      "begin": "^#",
+      "end": "^#Fin",
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.efd",
+          "match": ".*"
+        }
+      ]
     },
     "strings": {
       "name": "string.quoted.double.efd",
@@ -51,6 +59,18 @@
       "captures": {
         "1": { "name": "constant.numeric.ordinal.efd" }
       }
+    },
+    "logic_operators": {
+      "patterns": [
+        {
+          "match": "\\b(y|o|entonces|si no)\\b",
+          "name": "keyword.control.logical.efd"
+        },
+        {
+          "match": "(==|!=|>|<|>=|<=)",
+          "name": "keyword.operator.logical.efd"
+        }
+      ]
     },
     "pipelines": {
       "match": "->",

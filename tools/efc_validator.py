@@ -70,12 +70,22 @@ class EfectralValidator:
         return len(self.errors) == 0
 
     def _check_bracket_balance(self, content: str):
-        """Verifica que todos los corchetes y paréntesis estén equilibrados respetando comentarios y ordinales."""
+        """Verifica que todos los corchetes y paréntesis estén equilibrados respetando bloques del parser."""
         stack: List[Tuple[str, int, int]] = []
         in_string = False
         escape = False
+        in_parser_block = False
 
         for line_num, raw_line in enumerate(content.splitlines(), start=1):
+            stripped_line = raw_line.strip()
+            if in_parser_block:
+                if stripped_line == "#Fin":
+                    in_parser_block = False
+                continue
+            elif stripped_line.startswith("#") and stripped_line != "#Fin":
+                in_parser_block = True
+                continue
+
             col_num = 0
             line_len = len(raw_line)
             
@@ -108,10 +118,6 @@ class EfectralValidator:
                 if in_string:
                     i += 1
                     continue
-
-                # Si encontramos un comentario fuera de string, ignorar el resto de la línea
-                if ch == '#':
-                    break
 
                 # Comprobación de corchetes y paréntesis
                 if ch in ('[', '('):
@@ -152,11 +158,20 @@ class EfectralValidator:
         """Analiza línea por línea la conformidad con la especificación 1.0.0."""
         in_block = False
         block_depth = 0
+        in_parser_block = False
 
         for idx, line in enumerate(lines, start=1):
             stripped = line.strip()
 
-            if not stripped or stripped.startswith("#"):
+            if not stripped:
+                continue
+
+            if in_parser_block:
+                if stripped == "#Fin":
+                    in_parser_block = False
+                continue
+            elif stripped.startswith("#") and stripped != "#Fin":
+                in_parser_block = True
                 continue
 
             # Detect block opening: Identificador:[
@@ -200,20 +215,30 @@ class EfectralValidator:
 
             # Verificación de la Regla de No-Prosa
             if not in_block:
-                if not stripped.startswith("@") and not stripped.startswith("!") and not stripped.startswith("#"):
-                    if not re.match(r"^[0-9]+\)\s*!", stripped):
+                if not stripped.startswith("@") and not stripped.startswith("!"):
+                    if not re.match(r"^[0-9]+\)\s*!", stripped) and not stripped.startswith("["):
                         self.errors.append(ValidationError(
                             idx, 1, "RULE-01",
                             "Violación de la Regla de No-Prosa: Contenido suelto fuera de bloques estructurados.",
                             line
                         ))
             else:
+                # Análisis Morfosintáctico: Verificar Ley de Verbos Atómicos
+                if "!" in stripped:
+                    invalid_verbs = re.findall(r"!([a-z]+[A-Z][a-zA-Z]*|[A-Z][a-z]+[A-Z][a-zA-Z]*)", stripped)
+                    if invalid_verbs:
+                        self.errors.append(ValidationError(
+                            idx, 1, "MORPH-01",
+                            f"Violación de Ley del Sujeto Tácito: Los verbos deben ser atómicos. PascalCase/CamelCase prohibido: !{invalid_verbs[0]}",
+                            line
+                        ))
+
                 # Dentro de un bloque estructurado, solo se admiten elementos normativos
                 es_directiva = stripped.startswith("@")
                 es_accion = bool(re.match(r"^([0-9]+\)\s*)?!", stripped))
                 es_declaracion = bool(re.match(r"^-?[A-Za-zÁ-Úá-úÑñ0-9_]+:\s*(\[|\"|[A-Za-zÁ-Úá-ú0-9_]+)", stripped)) or bool(re.match(r"^-?[A-Za-zÁ-Úá-úÑñ0-9_]+:", stripped))
-                es_bifurcacion = bool(re.match(r"^\[.+\]\s*->", stripped))
-                es_sifalla = bool(re.match(r"^SiFalla:\s*\[", stripped))
+                es_bifurcacion = bool(re.match(r"^\[.+\]\s*(->|entonces|y|o)\b", stripped)) or bool(re.match(r"^(si\s*no\s*entonces|entonces)\b", stripped))
+                es_sifalla = bool(re.match(r"^SiFalla(:\s*\[|\s+entonces)?", stripped))
                 es_herramienta = bool(re.match(r"^(Herramienta|Subagente)\s*\(", stripped))
                 es_cierre = stripped == "]" or stripped.endswith("]")
 

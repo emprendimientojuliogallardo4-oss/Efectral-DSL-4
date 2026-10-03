@@ -2,9 +2,10 @@
   "Agente Canónico": {
     "prefix": "agente-completo",
     "body": [
-      "# ================================================================",
-      "# AGENTE: ${1:NombreDelAgente} — EFECTRAL EFD",
-      "# ================================================================",
+      "#META",
+      "name: \"${1:NombreDelAgente}\"",
+      "description: \"Agente en Efectral EFD\"",
+      "#Fin",
       "",
       "BloqueIdentidad:[",
       "    @Identifícate(Agente:[${1:NombreDelAgente}]) Rol:[${2:RolPrincipal}] Organizacion:[${3:E J G 4}]",
@@ -58,7 +59,7 @@
   "Cortocircuito SiFalla": {
     "prefix": "sifalla",
     "body": [
-      "SiFalla:[Detén - EmiteAlerta:[${1:AlertaCritica}] - EsperaInstrucciones]$0"
+      "SiFalla:[Detén entonces !EmiteAlerta(Tipo:[${1:Critica}]) entonces !EsperaInstrucciones]$0"
     ],
     "description": "Inserta una cláusula de cortocircuito estricta ante excepciones"
   },
@@ -85,7 +86,7 @@
   "Bifurcacion Condicional": {
     "prefix": "bifurcacion",
     "body": [
-      "[${1:Demanda/Condicion}:${2:Patron}] -> !${3|Aplica,Verifica,Ejecuta,Emite|}(${4:Parametro}:[${5:Valor}])$0"
+      "[${1:Condicion}] ${2|->,entonces|} !${3|Aplica,Verifica,Ejecuta,Emite,Enruta|}(${4:Parametro}:[${5:Valor}])$0"
     ],
     "description": "Inserta una sentencia de bifurcación condicional / pattern matching"
   }

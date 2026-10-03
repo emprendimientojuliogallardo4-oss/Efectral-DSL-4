@@ -201,3 +201,48 @@ Es el sistema agÃ©ntico modelo del proyecto en blanco incrustado en el repositor
 * **CertificaciÃ³n Global:** 23 archivos `.efd` verificados con 100% de Ã©xito en el repositorio.
 
 
+---
+
+## 9. Actualización Crítica: Formalización de OpCodes y Erradicación del "Contrabando de Prosa"
+
+> **Fecha:** 3 de octubre de 2026  
+> **Participantes:** Julio César Gallardo (E J G 4) & Asistente AI (Antigravity)  
+
+### 9.1. El Hallazgo del "Contrabando de Prosa"
+Durante las pruebas de traducción de documentación al DSL, se detectó que los LLMs intentaban evadir la "Tolerancia Cero a la Prosa" ocultando oraciones completas y secuencias de pasos conversacionales dentro de valores y arrays (ej. @Define(Pasos:[Instalar sin afectar global])). 
+* **Solución Arquitectónica:** Se introdujo la **Política Anti-Contrabando** en EFECTRAL_FORGE.efd. Queda terminantemente prohibido usar estructuras de sujeto-verbo-predicado dentro de los corchetes. Toda secuencia debe ser un flujo atómico de **OpCodes** numerados (1) !AccionA, 2) !AccionB).
+
+### 9.2. Estandarización del Concepto de "OpCodes"
+Se conceptualizó formalmente que las **Acciones Ejecutivas (!)** de Efectral no son simplemente funciones, sino el equivalente a los **OpCodes (Código de Máquina Agéntico)** para el procesador neuronal (el LLM).
+* La semántica del verbo permanece viva (el LLM inventa o compila el OpCode en tiempo real según el contexto).
+* La morfología permanece rígida y blindada.
+
+### 9.3. Incorporación de Operadores Lógicos Nativos
+Reconociendo que los símbolos ==, !=, <, > son primitivas semánticas asimiladas por todos los LLMs (que ahorran tokens y aportan determinismo matemático), se formalizó su uso con una condición inquebrantable:
+* **Uso Confinado:** Solo pueden utilizarse dentro de los corchetes de evaluación/bifurcación (ej. [$Intentos > 3] -> !Detén).
+* **Prohibición de Lógica Clásica:** Queda prohibido el uso de constructos como if, else, nd, or. El flujo debe mantener la tubería de estado canónica.
+* **Gramática EBNF:** Se actualizó efectral-dsl.ebnf y SPECIFICATION.md para reconocer las expresiones lógicas nativas sin romper la validación del linter.
+---
+
+## 10. Evolución Lingüística: De Lenguaje de Programación a Gramática Estructural
+
+> **Fecha:** 3 de octubre de 2026  
+> **Participantes:** Julio César Gallardo (E J G 4) & Asistente AI (Antigravity)  
+
+### 10.1. El Salto Ontológico
+En un análisis profundo de la arquitectura, se dedujo que Efectral DSL no es un lenguaje de programación para una ALU (matemática abstracta), sino una **Gramática Estructural Restringida para Redes Neuronales (NLU)**. Al despojar al lenguaje de su "ruido social" (pragmática), queda el esqueleto morfosintáctico puro.
+
+### 10.2. Redefinición del Glosario (Morfosintaxis Agéntica)
+Se abandonó la jerga de programación tradicional para adoptar categorías gramaticales:
+* **Entidades Nominales ($):** Ya no "Variables". Son pronombres de memoria.
+* **Verbos Transitivos (!):** Ya no "OpCodes". Son el núcleo del predicado.
+* **Mandatos Absolutos (@):** Ya no "Directivas". Son adverbios de sistema.
+* **Objeto Directo y Atributo:** En lugar de Clave:[Valor].
+
+### 10.3. La "Ley del Sujeto Tácito" y la Pureza del Predicado
+Se detectó que comandos como !EmiteAlerta o !EsperaInstrucciones eran sustantivos disfrazados o verbos compuestos (PascalCase) que generaban ambigüedad cognitiva.
+* **Sujeto Tácito:** El sujeto de la acción es siempre la IA. El verbo debe conjugarse en **imperativo activo directo** (Ej: !Extrae). Quedan prohibidos los infinitivos y gerundios.
+* **El Predicado Estricto:** La única estructura permitida es !Verbo(ObjetoDirecto:[Atributo/Contexto]).
+  - *Incorrecto:* !EmiteAlerta(Mensaje:[Error])
+  - *Correcto:* !Emite(Alerta:[Error])
+* **Analizador Morfosintáctico:** El linter (efc_validator.py) fue actualizado para detectar y rechazar el uso de CamelCase/PascalCase después del prefijo !, forzando la atomicidad del verbo.

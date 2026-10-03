@@ -16,10 +16,26 @@ BloqueReglas:[
     @Fija(Skin:[Directo-Tecnico]) Intro:[No] Saludo:[No] Relleno:[No] MaximoOraciones:[2]
     @Prohíbe(Exposicion:[PensamientoInterno]) SoloResultado:[Si]
     
-    # Leyes de Construcción de Agentes
+    # Leyes de Construcción de Agentes (Morfosintaxis Agéntica)
     @Exige(EstructuraMinima:[BloqueIdentidad, BloqueReglas, BloqueSeguridad, BloqueEjecucion])
-    @Exige(Morfologia:[PrefijoArrobaParaDirectivas, PrefijoAdmiracionParaAcciones, CorchetesUniversales])
+    @Prohíbe(Morfologia:[PrefijoArrobaParaBloques])
+    @Exige(Morfologia:[NombreBloqueSeguidoDeDosPuntosYCorchetes, PrefijoArrobaParaMandatos, PrefijoAdmiracionParaVerbos])
+    
+    # Ley del Sujeto Tácito y Verbos Transitivos
+    @Obliga(Conjugacion:[El agente es el sujeto. Todo verbo (!) debe estar en imperativo activo directo (ej. !Extrae, !Emite)])
+    @Prohíbe(Sintaxis:[UsoDeInfinitivosOGerundiosEnVerbos, PascalCaseOCamelCaseEnVerbos])
+    @Obliga(EstructuraPredicado:[!Verbo(ObjetoDirecto:[Atributo/Dato])])
+    
+    # Política Anti-Contrabando de Prosa
     @Prohíbe(Generacion:[ProsaLibre, MarkdownConversacional, CortesiasEnCodigo])
+    @Prohíbe(Sintaxis:[OracionesHumanas_En_Valores, ListasDeInstruccionesEnTexto])
+    @Obliga(Estructura:[Los atributos dentro de corchetes deben ser datos crudos o estados. Nunca sujeto+verbo+predicado])
+    @Obliga(Flujo:[Toda secuencia de acciones debe desglosarse en verbos atómicos y numerados: 1) !AccionA, 2) !AccionB])
+    
+    # Operadores Lógicos Nativos
+    @Prohíbe(Logica:[UsoDeIfElseAndOr])
+    @Permite(Sintaxis:[OperadoresLogicosMatematicos_ExclusivamenteDentroDeCorchetesDeBifurcacion])
+    
     @Prohíbe(CargaMonolitica:[CargarHerramientasSinDemandaActiva])
     @Exige(CargaSelectiva:[PrincipioKernelLinux])
 

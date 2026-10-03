@@ -65,24 +65,44 @@ El repositorio está diseñado para operar bajo 4 modalidades precisas según la
 
 ---
 
-## 4. Gramática y Morfología Sintáctica
+## 4. Morfosintaxis Agéntica (La Gramática del LLM)
 
-### 4.1. Primitivas de Delimitación:
-* **Parámetros y Claves:** Todo valor o lista debe estar rigurosamente delimitado entre corchetes: `Clave:[Valor]`.
-* **Directivas de Sistema (`@`):** Comandos estructurales de alto nivel:
-  - `@Identifícate`: Declara rol, versión y naturaleza ontológica.
-  - `@Aplica`: Impone un estándar o política normativa.
-  - `@Fija`: Establece variables de entorno cognitivo (temperatura, modo, brevedad).
-  - `@Prohíbe`: Barreras infranqueables (anillos de seguridad / kernel ring 0).
-  - `@Exige`: Precondiciones de datos obligatorias.
+Efectral DSL no usa "tipos de datos" de programación clásica, sino **Categorías Gramaticales** diseñadas para el motor de inferencia semántica del LLM.
 
-* **Acciones Ejecutivas (`!`):** Operaciones atómicas de inferencia o interacción:
-  - `!Verifica`, `!Extrae`, `!Evalúa`, `!Calcula`, `!Escribe`, `!Ejecuta`, `!Emite`, `!EsperaInstrucciones`.
-  - La semántica del verbo es viva (comprensión profunda del LLM), pero su morfología es rígida (`!Acción`).
+### 4.1. Primitivas Morfológicas:
+* **Mandatos Absolutos (`@`):** Anteriormente "Directivas". Actúan como adverbios de sistema. Modifican el comportamiento y entorno global.
+  - `@Identifícate`, `@Aplica`, `@Fija`, `@Prohíbe`, `@Exige`.
+* **Verbos Transitivos de Acción (`!`):** Anteriormente "OpCodes". Representan la acción atómica.
+  - **Ley del Sujeto Tácito:** El sujeto siempre es la IA. Todo verbo debe conjugarse obligatoriamente en **imperativo activo directo** (`!Extrae`, `!Emite`, `!Detén`). Se prohíben infinitivos (`!Extraer`) y gerundios (`!Extrayendo`).
+  - **Prohibición de PascalCase:** Un verbo es una sola palabra. `!EmiteAlerta` es ilegal. La forma correcta separa la acción del objeto.
+* **Entidades Nominales (`$`):** Anteriormente "Variables". Representan conceptos o estados guardados en la memoria a corto plazo del LLM (pronombres de memoria). Ej: `$PrecioActual`.
 
-* **Flujo de Datos y Registros (`->`):**
-  - El paso de información entre instrucciones se realiza canalizando la salida a registros léxicos:
-    `!Extrae(Dato:[Precio]) -> $PrecioActual`
+### 4.2. Estructura Sintáctica del Predicado:
+Toda instrucción sigue una estructura lingüística inquebrantable que delimita la atención del modelo:
+* **Fórmula:** `!Verbo(ObjetoDirecto:[Atributo/Contexto])`
+* **Ejemplo:** `!Emite(Alerta:[Error de Red])`
+  - *Verbo:* `!Emite` (La acción).
+  - *Objeto Directo:* `Alerta:` (Sobre qué recae).
+  - *Atributo:* `[Error de Red]` (El dato).
+* Los corchetes `[ ]` y los dos puntos `:` actúan como las fronteras estrictas del predicado.
+
+### 4.3. Flujo Lógico y Conjunciones (El Motor de Consecuencia):
+El paso de información o la toma de decisiones no son operaciones binarias, son **Oraciones Lógicas Condicionadas**.
+* **El Conector de Consecuencia (`entonces` o `->`):** La flecha `->` es el alias matemático de la conjunción `entonces`. Conecta una evaluación o acción con su resultado.
+  `!Extrae(Dato:[Precio]) entonces $PrecioActual`
+* **Conectores Lógicos Nativos (`y`, `o`, `entonces`, `si no`):** Reemplazan a los clásicos `&&`, `||`, `if`, `else`. Se usan exclusivamente dentro de las bifurcaciones.
+  - `[$Intentos > 3 y $Estado == "Timeout"] entonces !Detén`
+* **Cortocircuito (`SiFalla`):** Actúa como cláusula de excepción lingüística.
+  `SiFalla:[Detén entonces !Emite(Alerta:[Fallo en Datos]) entonces !Espera(Evento:[Instrucciones])]`
+
+* **Conectores Lógicos de Lenguaje Natural (`y`, `o`, `entonces`, `si no`):**
+  - **Estado:** Estrictamente prohibidos como texto conectivo suelto.
+  - **Reemplazo Formal:** Si se requiere un "Y" (AND), se concatenan evaluaciones: `[Condicion1] [Condicion2] -> !Accion`. Si se requiere un "O" (OR), se usan líneas separadas o evaluación de matriz. El `entonces` se reemplaza por `->`.
+
+* **Bloques de Parser de Sistema (`#` ... `#Fin`):**
+  - El símbolo `#` no es para comentarios simples como en Python. Es un delimitador de metadatos de sistema (Parser Blocks).
+  - Al provenir de la herencia de OpenClaw, se utiliza para albergar la metadata clásica en YAML o los "Códigos Puros" de las Skills del sistema.
+  - **Mecánica:** Todo lo que inicia con `#` (ej. `#META`) y termina con `#Fin` es interceptado y evaluado por el motor/parser de OpenClaw antes de ser procesado por la IA. La IA ignora la sintaxis interna del parser, concentrándose en el resto del documento `.efd`.
 
 * **Manejo Determinista de Fallas (`SiFalla`):**
   - Toda acción crítica debe contener su cortocircuito:

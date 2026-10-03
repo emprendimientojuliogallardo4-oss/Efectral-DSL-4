@@ -4,10 +4,10 @@
 (* Autor: Julio César Gallardo                                     *)
 (* ================================================================ *)
 
-programa          = { bloque | instruccion | comentario } ;
+programa          = { bloque | instruccion | bloque_parser } ;
 
 bloque            = identificador , ":[" , { elemento_bloque } , "]" , salto_linea ;
-elemento_bloque   = directiva | instruccion | bifurcacion | declaracion | comentario ;
+elemento_bloque   = directiva | instruccion | bifurcacion | declaracion | bloque_parser ;
 
 directiva         = "@" , verbo_directiva , "(" , [ lista_argumentos ] , ")" , { parametro } ;
 verbo_directiva   = identificador ; (* Canon: Identifícate, Aplica, Fija, Prohíbe, Exige, Restringe *)
@@ -16,7 +16,10 @@ instruccion       = [ indice_ordinal ] , "!" , verbo_accion , [ "(" , [ lista_ar
 verbo_accion      = identificador ; (* Canon: Verifica, Extrae, Escribe, Ejecuta, Emite, EsperaInstrucciones, Revisa, Audita *)
 
 bifurcacion       = "[" , condicion , "]" , "->" , ( instruccion | directiva | variable | "[" , valor , "]" ) ;
-condicion         = identificador , [ ":" , valor ] ;
+condicion         = ( identificador , [ ":" , valor ] ) | expresion_logica ;
+expresion_logica  = ( variable | identificador ) , [ espacio ] , operador_logico , [ espacio ] , valor ;
+operador_logico   = "==" | "!=" | ">" | "<" | ">=" | "<=" ;
+espacio           = " " ;
 
 indice_ordinal    = numero , ")" ;
 tuberia           = "->" , variable ;
@@ -37,7 +40,8 @@ booleano          = "Si" | "No" ;
 identificador     = letra_mayuscula , { letra | digito | "_" } ;
 cadena            = '"' , { cualquier_caracter - '"' } , '"' ;
 numero            = digito , { digito } , [ "." , digito , { digito } ] ;
-comentario        = "#" , { cualquier_caracter - salto_linea } , salto_linea ;
+bloque_parser     = "#" , identificador_parser , { cualquier_caracter } , "#Fin" ;
+identificador_parser = { letra | digito | "_" | "-" } ;
 
 letra             = "A".."Z" | "a".."z" | "Á".."Ú" | "á".."ú" | "Ñ" | "ñ" ;
 letra_mayuscula   = "A".."Z" | "Á".."Ú" | "Ñ" ;
